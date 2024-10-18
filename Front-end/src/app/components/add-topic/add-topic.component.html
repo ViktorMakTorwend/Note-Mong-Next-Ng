@@ -1,0 +1,41 @@
+<form (ngSubmit)="register()" [formGroup]="addTopicForm">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" formControlName="title">
+        <div class="err" *ngIf="addTopicForm.get('title')?.hasError('required') &&
+                    addTopicForm.get('title')?.touched "> Title is required
+        </div>
+        <div class="err" *ngIf="addTopicForm.get('title')?.hasError('required') &&
+                    addTopicForm.get('title')?.dirty "> Empty title is not allowed
+        </div>
+        <div class="err" *ngIf="addTopicForm.get('title')?.hasError('notInUpperCase') &&
+                    addTopicForm.get('title')?.dirty "> Please, cap letter in Uppercase
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" formControlName="description">
+    </div>
+    <button [disabled]="addTopicForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- <form (ngSubmit)="register()" [formGroup]="userForm">
+    <div>
+        <label>user name</label>
+        <input formControlName="username">
+        <div *ngIf="userForm.get('username')?.hasError('required') && 
+                    userForm.get('username')?.dirty">
+            User name is required
+        </div>
+        <div *ngIf="userForm.get('username')?.hasError('minlength') && 
+                    userForm.get('password')?.dirty">
+            User name should be 3 haracters min
+        </div>
+    </div>
+    <div>
+        <label>password</label>
+        <input type="password" formControlName="password">
+        <div *ngIf="userForm.get('password')?.hasError('required')">Password is required</div>
+    </div>
+    <button [disabled]="userForm.invalid" type="submit">Register</button>
+</form> -->
