@@ -12,7 +12,7 @@ import { HTTPTopicService } from '../../services/http-topic.service';
     ReactiveFormsModule,
   ],
   templateUrl: './add-topic.component.html',
-  styleUrl: './add-topic.component.css'
+  styleUrl: './add-topic.component.css',
 })
 export class AddTopicComponent {
   addTopicForm = this.fb.group({
@@ -22,7 +22,7 @@ export class AddTopicComponent {
 
   constructor(
     private fb: FormBuilder,
-    //private topicService: HTTPTopicService
+    private topicService: HTTPTopicService
   ) { }
 
   static isTitleLetterUpperCase(control: AbstractControl): Validators | null {
@@ -30,15 +30,18 @@ export class AddTopicComponent {
     return titleLetter == titleLetter.toUpperCase() ? null : { notInUpperCase: true }
   }
 
-  // isTitleAvailable(control: AbstractControl): Observable<ValidationErrors | null> {
-  //   const titleName = control.value;
-  //   return this.topicService
-  //     .getTitleByName(titleName)
-  //     .pipe(map(available => (available.length == 0 ? null : { alreadyUsed: true })))
-  // }
+  isTitleAvailable(control: AbstractControl): Observable<ValidationErrors | null> {
+    const titleName = control.value;
+    return this.topicService
+      .getTitleByName(titleName)
+      .pipe(map(available => (available.length == 0 ? null : { alreadyUsed: true })))
+  }
 
   register(): void {
-    console.log("FORM_VALUE", this.addTopicForm.value);
-    console.log("FORM_VALID", this.addTopicForm.valid);
+    const topicForm: any = {
+      title: this.addTopicForm.value.title,
+      description: this.addTopicForm.value.description,
+    }
+    const topic = this.topicService.saveTopic(topicForm).subscribe(data => console.log(data));
   }
 }

@@ -1,5 +1,8 @@
-<div class="mx-auto p-2">
-    <div>
-        <eva-topic></eva-topic>
+<div class="mx-auto p-2" *ngIf="topics$.length">
+    <div *ngFor="let topic$ of topics$">
+        <eva-topic 
+            [topic]="topic$"
+            (deletedTopic)="deleteTopic($event)">   
+        </eva-topic>
     </div>
 </div>

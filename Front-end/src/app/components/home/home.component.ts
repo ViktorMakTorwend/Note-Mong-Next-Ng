@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TopicComponent } from '../topic/topic.component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TopicModel } from '../../types/topicModel';
-import { AddTopicComponent } from '../add-topic/add-topic.component';
+import { HTTPTopicService } from '../../services/http-topic.service';
 
 @Component({
   selector: 'eva-home',
@@ -11,11 +11,27 @@ import { AddTopicComponent } from '../add-topic/add-topic.component';
   imports: [
     CommonModule,
     TopicComponent,
-    AddTopicComponent,
+    NgIf,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  //topics!: Observable<Array<TopicModel | undefined>> = [];
+export class HomeComponent implements OnInit{
+  topics$: Array<TopicModel> = [];
+
+  constructor(
+    private topicService: HTTPTopicService
+  ) {
+    
+  }
+  ngOnInit(): void {
+    this.topicService.getTopics().subscribe(data => this.topics$ = data);
+  }
+
+  deleteTopic(topic: TopicModel) {
+    this.topicService.deleteTopic(topic).subscribe(data => console.log(data));
+    this.topicService.getTopics().subscribe(data => this.topics$ = data);
+  }
+
 }

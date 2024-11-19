@@ -28,4 +28,8 @@ export class TopicService {
         return this.topicModel.findByIdAndUpdate({_id: id}, updateTopicDto, {new: true} );
     }
 
+    deleteUser(id:string) {
+        return this.topicModel.findByIdAndDelete(id);
+    }
+
 }

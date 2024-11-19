@@ -2,7 +2,7 @@
     "scripts": {
       "start": "sudo docker compose up -d",
       "stop": "sudo docker compose down",
-      "dev-backend": "cd Back-end && npm run dev",
+      "dev-backend": "cd Back-end/nestjs-mongodb && npm run dev",
       "dev-frontend": "cd Front-end && npm run dev:note"
     }
   }

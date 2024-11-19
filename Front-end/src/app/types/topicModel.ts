@@ -1,4 +1,5 @@
 export interface TopicModel {
-    name: string;
-    descriptiton: string;
+    _id?: string;
+    title: string;
+    description: string;
 }
