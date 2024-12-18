@@ -40,7 +40,13 @@ export class TopicController {
         return;
     }
 
-        // @Get(':id')
+    @Get('/findByName/:titleName')
+    async getTopicByName(@Param('titleName') titleName: string) {
+        const foundTopic = await this.topicService.getTopicByTitle(titleName);
+        return foundTopic;
+    }
+
+    // @Get(':id')
     // async getTopicById(@Param('id') id: string) {
     //     const isValid = mongoose.Types.ObjectId.isValid(id);
     //     if (!isValid) throw new HttpException('Topic not found', 404);
@@ -49,16 +55,6 @@ export class TopicController {
     //     return foundTopic;
     // }
 
-    // @Get('findByName/:titleName')
-    // async getTopicByName(
-    //     @Param('titleName') titleName: string,
-    // ) {
-    //     console.log("AAA")
-    //     const foundTopic = await this.topicService.getTopicByTitle(titleName);
-    //     console.log("SERVER", foundTopic)
-    //     if (!foundTopic) throw new HttpException('Topic not found', 404);
-    //     return foundTopic;
-    // }
 
     // @Patch(':id')
     // @UsePipes(new ValidationPipe())

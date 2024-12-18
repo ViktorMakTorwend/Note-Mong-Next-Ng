@@ -18,21 +18,20 @@ export class TopicService implements TopicCrud {
     }
 
     getTopics(): Promise<TopicModel[]> | null {
-        return  this.topicModel.find()
+        return this.topicModel.find()
     }
 
     deleteTopic(id: string): Promise<TopicModel> | null {
         return this.topicModel.findByIdAndDelete(id);
     }
 
+    getTopicByTitle(titleName: string):Promise<TopicModel> | null {
+        return this.topicModel.findOne({ title: titleName });
+    }
+
     // getTopicById(id: string) {
     //     return this.topicModel.findById({_id: id})
     // }
-
-    // getTopicByTitle(titleName: string) {
-    //     return this.topicModel.findOne({title: titleName})
-    // }
-
     // updateTopic(id: string, updateTopicDto: UpdateTopicDto) {
     //     return this.topicModel.findByIdAndUpdate({_id: id}, updateTopicDto, {new: true} );
     // }

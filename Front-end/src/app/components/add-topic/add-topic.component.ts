@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { 
-  AbstractControl, 
-  FormBuilder, 
-  FormGroup, 
-  ReactiveFormsModule, 
-  ValidationErrors, 
-  Validators 
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { HTTPTopicService } from '../../services/http-topic.service';
@@ -30,13 +30,14 @@ export class AddTopicComponent {
   ) { }
 
   addTopicForm = this.fb.group({
-    title: this.fb.control('', [
-      Validators.required, 
-      AddTopicComponent.isTitleLetterUpperCase,
-      //control => this.isTitleAvailable(control)
-    ]
-  ),
-    description: this.fb.control('', Validators.required),
+    title: new FormControl(
+      '',
+      {
+        validators: [Validators.required, AddTopicComponent.isTitleLetterUpperCase],
+        asyncValidators: [this.isTitleAvailable()],
+        updateOn: 'change'
+      }),
+    description: ['', Validators.required]
   })
 
   static isTitleLetterUpperCase(control: AbstractControl): Validators | null {
@@ -44,12 +45,12 @@ export class AddTopicComponent {
     return titleLetter == titleLetter.toUpperCase() ? null : { notInUpperCase: true }
   }
 
-  isTitleAvailable(control: AbstractControl): Observable<ValidationErrors | null> {
-    const titleName = control.value;
-    console.log("FOUND TOPIC", this.topicService.getTopics())
-    return this.topicService
-      .getTitleByName(titleName)
-      .pipe(map(available => (available.length == 0 ? null : { alreadyUsed: true })))
+  isTitleAvailable(): AsyncValidatorFn {
+    return (control: AbstractControl) => {
+      return this.topicService
+        .getTitleByName(control.value)
+        .pipe(map(available => available === null ? null : { alreadyUsed: true }))
+    }
   }
 
   register(): void {
@@ -57,6 +58,14 @@ export class AddTopicComponent {
       title: this.addTopicForm.value.title,
       description: this.addTopicForm.value.description,
     }
+
     const topic = this.topicService.saveTopic(topicForm).subscribe(data => console.log("CREATED TOPIC: ", data));
+    this.addTopicForm.controls.description.setValue("");
+    this.addTopicForm.controls.description.markAsPristine();
+    this.addTopicForm.controls.description.markAsUntouched();
+    this.addTopicForm.controls.title.setValue("");
+    this.addTopicForm.controls.title.markAsPristine();
+    this.addTopicForm.controls.title.markAsUntouched();
+
   }
 }

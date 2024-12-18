@@ -9,4 +9,6 @@ export interface TopicCrud {
     getTopics(): Promise<TopicModel[]> | null;
 
     deleteTopic(id:string): Promise<TopicModel> | null;
+
+    getTopicByTitle(titleName: string): Promise<TopicModel> | null;
 };

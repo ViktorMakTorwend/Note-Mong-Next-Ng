@@ -28,7 +28,7 @@ export class HTTPTopicService {
       'Access-Control-Allow-Headers': 'Content-Type'
     };  
     let titleName: Observable<any> = this.http
-      .get<any>(`http://localhost:3000/topics/findByName/:${name}`, { headers: headers });
+      .get<any>(`http://localhost:3000/topics/findByName/${name}`, { headers: headers });
     return titleName;
   }
 

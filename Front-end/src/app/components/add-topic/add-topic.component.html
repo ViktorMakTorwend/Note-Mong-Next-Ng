@@ -14,6 +14,9 @@
         <div class="err" *ngIf="addTopicForm.get('title')?.hasError('notInUpperCase') &&
                     addTopicForm.get('title')?.dirty "> Please, cap letter in Uppercase
         </div>
+        <div class="err" *ngIf="addTopicForm.get('title')?.hasError('alreadyUsed') &&
+                    addTopicForm.get('title')?.dirty "> This title is already been used 
+        </div>
     </div>
     <div class="mb-3">
         <label class="form-label">Description</label>
