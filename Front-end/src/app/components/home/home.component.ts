@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TopicComponent } from '../topic/topic.component';
-import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TopicModel } from '../../types/topicModel';
 import { HTTPTopicService } from '../../services/http-topic.service';
@@ -12,7 +12,6 @@ import { HTTPTopicService } from '../../services/http-topic.service';
     CommonModule,
     TopicComponent,
     NgIf,
-    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

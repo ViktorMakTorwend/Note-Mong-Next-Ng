@@ -42,10 +42,12 @@ export class EditTopicComponent {
       this.topic._id = data._id;
     });
     this.addTopicForm = this.fb.group({
-      title: this.fb.control(this.topic.title, [Validators.required, EditTopicComponent.isTitleLetterUpperCase]),
+      title: this.fb.control(this.topic.title, 
+        [ Validators.required, 
+          EditTopicComponent.isTitleLetterUpperCase, 
+          this.isTitleAvailable]),
       description: this.fb.control(this.topic.description, Validators.required),
     });
-    console.log("ID: ", this.topic._id)
   }
 
   static isTitleLetterUpperCase(control: AbstractControl): Validators | null {
