@@ -5,6 +5,7 @@ import { Topic } from "src/schemas/Topic.schema";
 import { CreateTopicDto } from "./dto/CreateTopic.dto";
 import { TopicCrud } from "src/interfaces/TopicCRUD";
 import { TopicModel } from "src/types/Topic";
+import { UpdateTopicDto } from "./dto/UpdateTopic.dto";
 
 @Injectable()
 export class TopicService implements TopicCrud {
@@ -29,11 +30,12 @@ export class TopicService implements TopicCrud {
         return this.topicModel.findOne({ title: titleName });
     }
 
+    updateTopic(id: string, updateTopicDto: CreateTopicDto):Promise<TopicModel> | null  {
+        return this.topicModel.findByIdAndUpdate({_id: id}, updateTopicDto, {new: true} );
+    }
+
     // getTopicById(id: string) {
     //     return this.topicModel.findById({_id: id})
-    // }
-    // updateTopic(id: string, updateTopicDto: UpdateTopicDto) {
-    //     return this.topicModel.findByIdAndUpdate({_id: id}, updateTopicDto, {new: true} );
     // }
 
 }

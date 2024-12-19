@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TopicComponent } from '../topic/topic.component';
 import { CommonModule, NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
 import { TopicModel } from '../../types/topicModel';
 import { HTTPTopicService } from '../../services/http-topic.service';
 
@@ -29,7 +28,7 @@ export class HomeComponent implements OnInit{
   }
 
   deleteTopic(topic: TopicModel) {
-    this.topicService.deleteTopic(topic).subscribe(data => console.log(data));
+    this.topicService.deleteTopic(topic).subscribe(data => console.log("Deleted topic", data));
     this.topicService.getTopics().subscribe(data => this.topics$ = data);
   }
 

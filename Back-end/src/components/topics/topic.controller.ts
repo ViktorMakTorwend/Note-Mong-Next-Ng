@@ -46,6 +46,16 @@ export class TopicController {
         return foundTopic;
     }
 
+    @Patch(':id')
+    @UsePipes(new ValidationPipe())
+    async updateTopic(@Param('id') id: string, @Body() updateTopicDto: CreateTopicDto) {
+        const isValid = mongoose.Types.ObjectId.isValid(id);
+        if (!isValid) throw new HttpException('Invalid ID', 400);
+        const updateTopic = await this.topicService.updateTopic(id, updateTopicDto);
+        if (!updateTopic) throw new HttpException('Topic not found', 404);
+        return updateTopic;
+    }
+
     // @Get(':id')
     // async getTopicById(@Param('id') id: string) {
     //     const isValid = mongoose.Types.ObjectId.isValid(id);
@@ -53,17 +63,6 @@ export class TopicController {
     //     const foundTopic = await this.topicService.getTopicById(id);
     //     if (!foundTopic) throw new HttpException('Topic not found', 404);
     //     return foundTopic;
-    // }
-
-
-    // @Patch(':id')
-    // @UsePipes(new ValidationPipe())
-    // async updateTopic(@Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
-    //     const isValid = mongoose.Types.ObjectId.isValid(id);
-    //     if (!isValid) throw new HttpException('Invalid ID', 400);
-    //     const updateTopic = await this.topicService.updateTopic(id, updateTopicDto);
-    //     if (!updateTopic) throw new HttpException('Topic not found', 404);
-    //     return updateTopic;
     // }
 
 }

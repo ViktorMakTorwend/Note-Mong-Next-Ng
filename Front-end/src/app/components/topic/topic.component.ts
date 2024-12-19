@@ -7,7 +7,6 @@ import { TransmitDataBtwComponentsService } from '../../services/transmit-data-b
   selector: 'eva-topic',
   standalone: true,
   imports: [
-    RouterOutlet,
     RouterModule,
   ],
   templateUrl: './topic.component.html',
@@ -24,13 +23,13 @@ export class TopicComponent {
   constructor(private dataTransmit: TransmitDataBtwComponentsService) {}
 
   @Output()
-  readonly deletedTopic = new EventEmitter<TopicModel>();
+  readonly emittedTopic = new EventEmitter<TopicModel>();
 
-  deleteTopic() {
-    this.deletedTopic.emit(this.topic);
+  topicForDelete() {
+    this.emittedTopic.emit(this.topic);
   }
 
-  editTopicTransmitData() {
+  topicForEdit() {
     this.dataTransmit.transmitData(this.topic);
   }
 

@@ -11,4 +11,6 @@ export interface TopicCrud {
     deleteTopic(id:string): Promise<TopicModel> | null;
 
     getTopicByTitle(titleName: string): Promise<TopicModel> | null;
+
+    updateTopic(id: string, updateTopicDto: CreateTopicDto):Promise<TopicModel> | null;
 };

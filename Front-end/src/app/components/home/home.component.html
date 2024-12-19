@@ -2,7 +2,7 @@
     <div *ngFor="let topic$ of topics$">
         <eva-topic 
             [topic]="topic$"
-            (deletedTopic)="deleteTopic($event)">   
+            (emittedTopic)="deleteTopic($event)">
         </eva-topic>
     </div>
 </div>

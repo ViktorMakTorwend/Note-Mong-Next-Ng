@@ -42,14 +42,14 @@ export class HTTPTopicService {
     return this.http.post<any>('http://localhost:3000/topics', body, { headers: headers });
   }
 
-  changeTopic(topicId: string, topic: any): Observable<any> {
+  changeTopic(topic: any): Observable<any> {
     const headers = { 
       'content-type': 'application/json',
       'Access-Control-Allow-Methods': 'GET POST PUT DELETE',
       'Access-Control-Allow-Headers': 'Content-Type'
     };  
     const body=JSON.stringify(topic);
-    return this.http.patch<any>(`http://localhost:3000/topics/${topicId}`, body, { headers: headers });
+    return this.http.patch<any>(`http://localhost:3000/topics/${topic.id}`, body, { headers: headers });
   }
 
   deleteTopic(topic: any) {
