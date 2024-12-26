@@ -10,15 +10,13 @@ export class TransmitDataBtwComponentsService {
     title: "",
     description: "",
     _id: "",
+    time: new Date()
   }
   public dataSource = new BehaviorSubject(this.topic);
-  //public dataSource = new AsyncSubject();
-  //currentData = this.dataSource.asObservable();
 
   constructor() { }
 
   transmitData(topic: TopicModel) {
-    console.log("EMITTING DATA...", topic)
     this.dataSource.next(topic);
   }
 }

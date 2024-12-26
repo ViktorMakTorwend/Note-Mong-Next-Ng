@@ -1,13 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TopicModel } from '../../types/topicModel';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TransmitDataBtwComponentsService } from '../../services/transmit-data-betw-components.service';
+import { TimePassedAfterCreationPipe } from '../../pipes/timePassedAfterCreationPipe'
+import { TransformTimePipe } from '../../pipes/transformTimePipe';
 
 @Component({
   selector: 'eva-topic',
   standalone: true,
   imports: [
     RouterModule,
+    TimePassedAfterCreationPipe,
+    TransformTimePipe,
   ],
   templateUrl: './topic.component.html',
   styleUrl: './topic.component.css'
@@ -18,6 +22,7 @@ export class TopicComponent {
     title: "",
     description: "",
     _id: "",
+    time: new Date(),
   };
 
   constructor(private dataTransmit: TransmitDataBtwComponentsService) {}

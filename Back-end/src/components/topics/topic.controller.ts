@@ -50,6 +50,7 @@ export class TopicController {
     @UsePipes(new ValidationPipe())
     async updateTopic(@Param('id') id: string, @Body() updateTopicDto: CreateTopicDto) {
         const isValid = mongoose.Types.ObjectId.isValid(id);
+        console.log("FROM UPDATE: ", updateTopicDto);
         if (!isValid) throw new HttpException('Invalid ID', 400);
         const updateTopic = await this.topicService.updateTopic(id, updateTopicDto);
         if (!updateTopic) throw new HttpException('Topic not found', 404);

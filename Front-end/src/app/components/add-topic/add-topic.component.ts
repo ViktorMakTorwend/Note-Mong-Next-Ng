@@ -14,6 +14,8 @@ import { HTTPTopicService } from '../../services/http-topic.service';
 import { TopicModel } from '../../types/topicModel';
 import { TransmitDataBtwComponentsService } from '../../services/transmit-data-betw-components.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonService } from '../../services/common.service';
+import { TransformTimePipe } from '../../pipes/transformTimePipe';
 
 @Component({
   selector: 'eva-add-topic',
@@ -21,24 +23,27 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    TransformTimePipe,
   ],
   templateUrl: './add-topic.component.html',
   styleUrl: './add-topic.component.css',
 })
 export class AddTopicComponent implements OnInit {
   public addTopicForm!: FormGroup;
-  public editMode: string | null = null;
+  public addMode: string | null = null;
+  public creationTime: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
     private topicService: HTTPTopicService,
     private transmitDataService: TransmitDataBtwComponentsService,
+    private commonService: CommonService,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.editMode = this.route.snapshot.paramMap.get("addMode");
-    if (this.editMode) {
+    this.addMode = this.route.snapshot.paramMap.get("addMode");
+    if (this.addMode) {
       this.addTopicForm = this.fb.group({
         title: new FormControl(
           "",
@@ -47,10 +52,11 @@ export class AddTopicComponent implements OnInit {
             asyncValidators: [this.isTitleAvailable()],
             updateOn: 'change'
           }),
-        description: ["", Validators.required]
+        description: ["", Validators.required],
+        time: [this.creationTime]
       })
     } else {
-      const editData = this.transmitDataService.dataSource.subscribe((data: any) => {
+      const editData = this.transmitDataService.dataSource.subscribe((data: TopicModel) => {
         this.addTopicForm = this.fb.group({
           title: new FormControl(
             data.title,
@@ -60,6 +66,7 @@ export class AddTopicComponent implements OnInit {
               updateOn: 'blur'
             }),
           description: [data.description, Validators.required],
+          time: [data.time],
           _id: [data._id],
         });
       })
@@ -84,8 +91,9 @@ export class AddTopicComponent implements OnInit {
     const topic: TopicModel = {
       title: this.addTopicForm.value.title,
       description: this.addTopicForm.value.description,
+      time: this.addTopicForm.value.time
     }
-    if (this.editMode) {
+    if (this.addMode == "true") {
       this.topicService.saveTopic(topic).subscribe(data => console.log("CREATED TOPIC: ", data));
     } else {
       const id = this.addTopicForm.value._id;

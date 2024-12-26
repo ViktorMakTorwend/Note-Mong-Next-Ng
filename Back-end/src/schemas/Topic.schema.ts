@@ -8,6 +8,9 @@ export class Topic {
     @Prop({required: true})
     description: string;
 
+    @Prop({required: true})
+    time: string;
+
     @Prop({required: false})
     picUrl?: string;
 
