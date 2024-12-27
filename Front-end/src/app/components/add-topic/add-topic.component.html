@@ -3,7 +3,7 @@
 </div>
 <form (ngSubmit)="register()" [formGroup]="addTopicForm">
     <div class="mb-3">
-        <label class="form-label">Creation time: {{ creationTime | transformTime }}</label>
+        <label class="form-label">Creation time: {{ creationTime | transformTimePipe }}</label>
     </div>
     <div class="mb-3">
         <label class="form-label">Title</label>

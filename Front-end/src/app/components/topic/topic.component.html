@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-header">
     <h5 class="card-title"> {{ topic.title}} </h5>
-    <h6> Created {{topic.time | transformTime}} </h6>
+    <h6> Created {{topic.time | transformTimePipe}} </h6>
     <p>Passed from starting {{topic.time | timePassedAfterCreationPipe}}</p>
   </div>
   <div class="row g-0">

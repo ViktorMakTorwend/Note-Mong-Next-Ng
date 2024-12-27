@@ -2,13 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TopicModel } from '../types/topicModel';
+import { LogService } from './log.service';
+import { ServiceTypeEnum } from '../enums/appEnums';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HTTPTopicService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private logService: LogService,
+  ) { }
 
   getTopics(): Observable<any> {
     const headers = { 
@@ -18,6 +23,7 @@ export class HTTPTopicService {
     };  
     let topics: Observable<any> = this.http
       .get<any>(`http://localhost:3000/topics`, { headers: headers });
+    this.logService.log("get topics", ServiceTypeEnum.api)
     return topics;
   }
 

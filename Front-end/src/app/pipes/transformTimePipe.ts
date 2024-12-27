@@ -3,7 +3,7 @@ import { format } from 'date-fns/format';
 import { ru } from 'date-fns/locale/ru';
 
 @Pipe({
-    name: 'transformTime',
+    name: 'transformTimePipe',
     standalone: true,
 })
 export class TransformTimePipe implements PipeTransform {
