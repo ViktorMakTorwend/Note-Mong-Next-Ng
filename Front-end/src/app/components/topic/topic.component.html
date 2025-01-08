@@ -1,12 +1,11 @@
-<div class="card mb-3">
-  <div class="card-header">
+<div class="card border-info mb-3">
+  <div class="card-header text-center">
     <h5 class="card-title"> {{ topic.title}} </h5>
-    <h6> Created {{topic.time | transformTimePipe}} </h6>
-    <p>Passed from starting {{topic.time | timePassedAfterCreationPipe}}</p>
+    <h6> Created {{topic.time | transformTimePipe}} ({{topic.time | timePassedAfterCreationPipe}}) </h6>
   </div>
   <div class="row g-0">
     <div class="col-md-8">
-      <div class="card-body">
+      <div class="card-body text-dark">
         <p class="card-text">{{topic.description}}</p>
       </div>
     </div>

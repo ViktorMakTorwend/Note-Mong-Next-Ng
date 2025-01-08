@@ -14,7 +14,6 @@ import { HTTPTopicService } from '../../services/http-topic.service';
 import { TopicModel } from '../../types/topicModel';
 import { TransmitDataBtwComponentsService } from '../../services/transmit-data-betw-components.service';
 import { ActivatedRoute } from '@angular/router';
-import { CommonService } from '../../services/common.service';
 import { TransformTimePipe } from '../../pipes/transformTimePipe';
 
 @Component({
@@ -37,7 +36,6 @@ export class AddTopicComponent implements OnInit {
     private fb: FormBuilder,
     private topicService: HTTPTopicService,
     private transmitDataService: TransmitDataBtwComponentsService,
-    private commonService: CommonService,
     private route: ActivatedRoute,
   ) { }
 
@@ -96,8 +94,8 @@ export class AddTopicComponent implements OnInit {
     if (this.addMode == "true") {
       this.topicService.saveTopic(topic).subscribe(data => console.log("CREATED TOPIC: ", data));
     } else {
-      const id = this.addTopicForm.value._id;
-      const editTopic = { ...topic, id }
+      const _id = this.addTopicForm.value._id;
+      const editTopic = { ...topic, _id }
       this.topicService.changeTopic(editTopic).subscribe(data => console.log("EDITED TOPIC: ", data));
     }
     this.clearForm("description", "title");

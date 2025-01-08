@@ -4,6 +4,14 @@
 -  can edit no delete.
 -  with checkbox - "done" or "undone".
 
+08.01.25 
+- add background for topic 
+ * blue for those which must be complete today
+ * light for those which must be completed in future
+ * green for successfully completed
+ * red for not completed on time
+ * yellow for those which are close to be not completed on time
+
 # FrontEnd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.

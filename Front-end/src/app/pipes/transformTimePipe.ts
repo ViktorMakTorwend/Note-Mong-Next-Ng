@@ -1,6 +1,6 @@
 import { isStandalone, Pipe, PipeTransform } from "@angular/core";
 import { format } from 'date-fns/format';
-import { ru } from 'date-fns/locale/ru';
+import { enUS } from "date-fns/locale";
 
 @Pipe({
     name: 'transformTimePipe',
@@ -9,7 +9,7 @@ import { ru } from 'date-fns/locale/ru';
 export class TransformTimePipe implements PipeTransform {
     transform(value: Date, ...args: any[]) {
         const result = format(value, "do  MMMM yyyy hh:mm", {
-            locale: ru
+            locale: enUS
         })
         return result;
     }
