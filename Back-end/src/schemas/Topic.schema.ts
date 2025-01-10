@@ -11,8 +11,14 @@ export class Topic {
     @Prop({required: true})
     time: string;
 
+    @Prop({required: true})
+    mandatory: boolean;
+
     @Prop({required: false})
     picUrl?: string;
+
+    @Prop({required: false})
+    weather?: boolean;
 
 }
 

@@ -1,8 +1,9 @@
 20.12.24 - Add automatic creating posts every day.
 -  with current date.
--  with weather. 
 -  can edit no delete.
 -  with checkbox - "done" or "undone".
+-  with weather for sport. 
+-  can create and specify the time  
 
 08.01.25 
 - add background for topic 

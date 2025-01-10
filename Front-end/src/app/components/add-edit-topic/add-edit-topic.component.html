@@ -6,6 +6,10 @@
         <label class="form-label">Creation time: {{ creationTime | transformTimePipe }}</label>
     </div>
     <div class="mb-3">
+        <div>
+            <label class="form-label">Mandatory task</label>
+            <input type="checkbox" class="form-check-input" formControlName="mandatory">
+        </div>
         <label class="form-label">Title</label>
         <input type="text" class="form-control" formControlName="title">
         <div class="err" *ngIf="addTopicForm.get('title')?.hasError('required') &&
@@ -18,7 +22,7 @@
                     addTopicForm.get('title')?.dirty "> Please, cap letter in Uppercase
         </div>
         <div class="err" *ngIf="addTopicForm.get('title')?.hasError('alreadyUsed') &&
-                    addTopicForm.get('title')?.dirty "> This title is already been used 
+                    addTopicForm.get('title')?.dirty "> This title is already been used
         </div>
     </div>
     <div class="mb-3">

@@ -46,6 +46,15 @@ export class TopicController {
         return foundTopic;
     }
 
+    @Get('/findByDate')
+    async getTopicByDate(
+        @Query('date') date: string,
+        @Query('mandatory') mandatory: boolean,
+        @Query('title') title: string) {
+        const foundTopic = await this.topicService.getTopicByDate(date, mandatory, title);
+        return foundTopic;
+    }
+
     @Patch(':id')
     @UsePipes(new ValidationPipe())
     async updateTopic(@Param('id') id: string, @Body() updateTopicDto: CreateTopicDto) {

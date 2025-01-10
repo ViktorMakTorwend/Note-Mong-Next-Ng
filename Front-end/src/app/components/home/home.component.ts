@@ -3,6 +3,7 @@ import { TopicComponent } from '../topic/topic.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { TopicModel } from '../../types/topicModel';
 import { HTTPTopicService } from '../../services/http-topic.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'eva-home',
@@ -19,12 +20,17 @@ export class HomeComponent implements OnInit{
   topics$: Array<TopicModel> = [];
 
   constructor(
-    private topicService: HTTPTopicService
+    private topicService: HTTPTopicService,
+    private commonService: CommonService,
   ) {
     
   }
   ngOnInit(): void {
-    this.topicService.getTopics().subscribe(data => this.topics$ = data);
+    this.commonService.createMandatoryTopic();
+    setTimeout(() => {
+      this.topicService.getTopics().subscribe(data => this.topics$ = data);
+    }, 1000);
+    
   }
 
   deleteTopic(topic: TopicModel) {

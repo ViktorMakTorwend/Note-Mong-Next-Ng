@@ -9,6 +9,7 @@ import { ServiceTypeEnum } from '../enums/appEnums';
 })
 export class TransmitDataBtwComponentsService {
   private topic: TopicModel = {
+    mandatory: false,
     title: "",
     description: "",
     _id: "",

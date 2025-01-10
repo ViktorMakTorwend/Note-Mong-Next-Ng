@@ -17,17 +17,17 @@ import { ActivatedRoute } from '@angular/router';
 import { TransformTimePipe } from '../../pipes/transformTimePipe';
 
 @Component({
-  selector: 'eva-add-topic',
+  selector: 'eva-add-edit-topic',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     TransformTimePipe,
   ],
-  templateUrl: './add-topic.component.html',
-  styleUrl: './add-topic.component.css',
+  templateUrl: './add-edit-topic.component.html',
+  styleUrl: './add-edit-topic.component.css',
 })
-export class AddTopicComponent implements OnInit {
+export class AddEditTopicComponent implements OnInit {
   public addTopicForm!: FormGroup;
   public addMode: string | null = null;
   public creationTime: Date = new Date();
@@ -41,25 +41,28 @@ export class AddTopicComponent implements OnInit {
 
   ngOnInit(): void {
     this.addMode = this.route.snapshot.paramMap.get("addMode");
-    if (this.addMode) {
+    if (this.addMode == "true") {
       this.addTopicForm = this.fb.group({
+        mandatory: new FormControl(false),
         title: new FormControl(
           "",
           {
-            validators: [Validators.required, AddTopicComponent.isTitleLetterUpperCase],
+            validators: [Validators.required, AddEditTopicComponent.isTitleLetterUpperCase],
             asyncValidators: [this.isTitleAvailable()],
             updateOn: 'change'
           }),
         description: ["", Validators.required],
         time: [this.creationTime]
       })
-    } else {
+    } else if(this.addMode == "false")
+      {
       const editData = this.transmitDataService.dataSource.subscribe((data: TopicModel) => {
         this.addTopicForm = this.fb.group({
+          mandatory: data.mandatory,
           title: new FormControl(
             data.title,
             {
-              validators: [Validators.required, AddTopicComponent.isTitleLetterUpperCase],
+              validators: [Validators.required, AddEditTopicComponent.isTitleLetterUpperCase],
               asyncValidators: [this.isTitleAvailable()],
               updateOn: 'blur'
             }),
@@ -80,13 +83,14 @@ export class AddTopicComponent implements OnInit {
   isTitleAvailable(): AsyncValidatorFn {
     return (control: AbstractControl) => {
       return this.topicService
-        .getTitleByName(control.value)
+        .getTopicByTitle(control.value)
         .pipe(map(available => available === null ? null : { alreadyUsed: true }))
     }
   }
 
   register(): void {
     const topic: TopicModel = {
+      mandatory: this.addTopicForm.value.mandatory,
       title: this.addTopicForm.value.title,
       description: this.addTopicForm.value.description,
       time: this.addTopicForm.value.time

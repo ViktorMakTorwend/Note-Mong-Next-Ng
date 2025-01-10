@@ -1,6 +1,9 @@
-import { IsNotEmpty, IsOptional, isString, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsOptional, isString, IsString } from "class-validator";
 
 export class CreateTopicDto {
+    @IsBoolean()
+    mandatory: boolean;
+
     @IsNotEmpty()
     @IsString()
     title: string;
@@ -16,4 +19,8 @@ export class CreateTopicDto {
     @IsString()
     @IsOptional()
     picUrl?: string;
+
+    @IsBoolean()
+    @IsOptional()
+    weather?: boolean;
 }

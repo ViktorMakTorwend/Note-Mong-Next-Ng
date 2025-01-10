@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TransmitDataBtwComponentsService } from '../../services/transmit-data-betw-components.service';
 import { TimePassedAfterCreationPipe } from '../../pipes/timePassedAfterCreationPipe'
 import { TransformTimePipe } from '../../pipes/transformTimePipe';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'eva-topic',
@@ -12,6 +13,7 @@ import { TransformTimePipe } from '../../pipes/transformTimePipe';
     RouterModule,
     TimePassedAfterCreationPipe,
     TransformTimePipe,
+    NgClass,
   ],
   templateUrl: './topic.component.html',
   styleUrl: './topic.component.css'
@@ -19,6 +21,7 @@ import { TransformTimePipe } from '../../pipes/transformTimePipe';
 export class TopicComponent {
   @Input()
   public topic: TopicModel = {
+    mandatory: false,
     title: "",
     description: "",
     _id: "",

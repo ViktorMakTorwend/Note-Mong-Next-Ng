@@ -5,13 +5,16 @@ import { Topic } from "src/schemas/Topic.schema";
 import { CreateTopicDto } from "./dto/CreateTopic.dto";
 import { TopicCrud } from "src/interfaces/TopicCRUD";
 import { TopicModel } from "src/types/Topic";
-import { UpdateTopicDto } from "./dto/UpdateTopic.dto";
 
 @Injectable()
 export class TopicService implements TopicCrud {
     constructor(
         @InjectModel(Topic.name) private topicModel: Model<Topic>
     ) { }
+    
+    getTopicByDate(date: string, mandatory: boolean, title: string): Promise<TopicModel> | null {
+        return this.topicModel.findOne({ time: new RegExp(`^${date}`), mandatory: mandatory, title: title });
+    }
 
     createTopic(createTopicDto: CreateTopicDto): Promise<TopicModel> {
         const newTopic = new this.topicModel(createTopicDto);

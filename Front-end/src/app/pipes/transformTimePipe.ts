@@ -1,4 +1,4 @@
-import { isStandalone, Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
 import { format } from 'date-fns/format';
 import { enUS } from "date-fns/locale";
 
